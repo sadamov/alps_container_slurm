@@ -1,0 +1,3 @@
+*.zarr
+*.sqsh
+logs

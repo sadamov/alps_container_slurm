@@ -1,0 +1,12 @@
+datastore:
+  kind: mdp
+  config_path: cosmo.datastore.yaml
+datastore_boundary:
+  kind: mdp
+  config_path: era5.datastore.yaml
+training:
+  state_feature_weighting:
+    __config_class__: ManualStateFeatureWeighting
+    weights:
+      U_lev_55: 1.0
+      V_lev_55: 1.0
