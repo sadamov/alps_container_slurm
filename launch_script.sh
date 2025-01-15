@@ -2,11 +2,12 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=01:00:00
+#SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
-#SBATCH --nodes=1
-#SBATCH --gres=gpu:1
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=4
+#SBATCH --gres=gpu:4
 if [ ! -d "logs" ]; then
     mkdir logs
 fi
