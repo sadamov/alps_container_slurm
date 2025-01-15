@@ -1,18 +1,43 @@
 FROM nvcr.io/nvidia/pytorch:24.04-py3
 
-WORKDIR /app
+RUN pip install --upgrade pip
 
-# Copy constraints first
-COPY constraints.txt .
+# Dependencies
+RUN pip install --no-cache-dir \
+    "pandas<1.6.0dev0,>=1.3" \
+    "fsspec==2024.2.0" \
+    xarray \
+    matplotlib \
+    cartopy \
+    pyproj \
+    networkx \
+    loguru \
+    wandb \
+    plotly \
+    tueplots \
+    jupyter-book \
+    ipykernel \
+    bokeh \
+    numcodecs \
+    pre-commit \
+    pytest \
+    pooch \
+    gcsfs \
+    spherical-geometry \
+    jinja2 \
+    dask[distributed] \
+    "torch-geometric==2.3.1" \
+    parse \
+    pytorch-lightning \
+    "dataclass-wizard<0.31.0" \
+    sphinxcontrib-mermaid \
+    isodate \
+    semver \
+    zarr \
+    "dask==2024.1.1"
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y python3-pip python3-venv git && rm -rf /var/lib/apt/lists/*
-
-# Install core dependencies with specific versions
-RUN pip install --no-cache-dir --upgrade pip setuptools==69.5.1
-
-# Install project-specific packages
-RUN pip install --no-cache-dir -c constraints.txt \
+# Git packages without dependencies
+RUN pip install --no-cache-dir --no-deps \
     git+https://github.com/joeloskarsson/mllam-data-prep.git@arcdist_fix \
     git+https://github.com/joeloskarsson/weather-model-graphs.git@decoding_mask \
-    git+https://github.com/joeloskarsson/neural-lam-dev.git@boundary_forcing
+    git+https://github.com/joeloskarsson/neural-lam-dev.git@time_delta_emb

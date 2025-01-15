@@ -1,3 +1,5 @@
 *.zarr
 *.sqsh
 logs
+graphs
+wandb

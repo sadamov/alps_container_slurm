@@ -5,7 +5,7 @@ output:
   variables:
     static: [grid_index, static_feature]
     state: [time, grid_index, state_feature]
-    # forcing: [time, grid_index, forcing_feature]
+    forcing: [time, grid_index, forcing_feature]
   coord_ranges:
     time:
       start: 2015-11-28T00:00
