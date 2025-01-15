@@ -37,7 +37,7 @@ fi
 if [ ! -d "graphs" ]; then
     echo "Graphs not found, building it"
     srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
-        -N1 python -m neural_lam.build_rectangular_graph --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml --graph_name hierarchical --archetype hierarchical --max_num_levels 3 --mesh_node_distance 10240.0 &
+        -N1 python -m neural_lam.build_rectangular_graph --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml --graph_name hierarchical --archetype hierarchical --max_num_levels 4 --mesh_node_distance 10240.0 &
     wait $!
     if [ $? -ne 0 ]; then
         echo "Graph preparation failed"
@@ -47,7 +47,8 @@ fi
 
 # Final training step
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
-    python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml --model hi_lam --graph_name hierarchical --epochs 1 &
+    python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
+    --model hi_lam --graph_name hierarchical --epochs 20 --val_interval 10 --hiddem_dim 128 &
 wait $!
 if [ $? -ne 0 ]; then
     echo "Training failed"
