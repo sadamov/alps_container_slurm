@@ -3,3 +3,4 @@
 logs
 graphs
 wandb
+model.ckpt

@@ -16,6 +16,7 @@ HTTP_PROXY = "http://proxy.cscs.ch:8080"
 HTTPS_PROXY = "http://proxy.cscs.ch:8080"
 CONDA_AUTO_ACTIVATE_BASE = "false"
 CONDA_DEFAULT_ENV = ""
+WANDB_DIR="/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb"
 
 [annotations]
 com.hooks.aws_ofi_nccl.enabled = "true"
