@@ -8,9 +8,14 @@
 #SBATCH --nodes=4
 #SBATCH --ntasks-per-node=4
 #SBATCH --gres=gpu:4
+
 if [ ! -d "logs" ]; then
     mkdir logs
 fi
+if [ ! -d "wandb" ]; then
+    mkdir wandb
+fi
+
 
 if [ ! -d "cosmo.datastore.zarr" ]; then
     echo "COSMO Datastore not found, preparing data"
@@ -49,7 +54,7 @@ fi
 # Final training step
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
-    --model hi_lam --graph_name hierarchical --epochs 20 --val_interval 10 --hidden_dim 128 &
+    --model hi_lam --graph_name hierarchical --epochs 50 --val_interval 10 --hidden_dim 128 &
 wait $!
 if [ $? -ne 0 ]; then
     echo "Training failed"
