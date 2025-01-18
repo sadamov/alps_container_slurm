@@ -17,5 +17,6 @@ fi
 
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml --model hi_lam \
-    --graph_name hierarchical --epochs 1 --eval test --n_example_pred 1 --val_steps_to_log 1 3 5 7 9 \
-    --load $SCRATCH/pyprojects_data/neural-lam/model.ckpt --hidden_dim 128
+    --graph_name hierarchical --epochs 1 --eval test --n_example_pred 5 --val_steps_to_log 1 3 5 7 9 \
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-4x128-01_17_20-9570/min_val_loss.ckpt \
+    --hidden_dim 128 --num_nodes 4 --batch_size 2

@@ -54,7 +54,9 @@ fi
 # Final training step
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
-    --model hi_lam --graph_name hierarchical --epochs 50 --val_interval 10 --hidden_dim 128 &
+    --model hi_lam --graph_name hierarchical --epochs 60 --val_interval 5 --hidden_dim 128 --num_nodes 4 --batch_size 2 \
+    --load $SCRATCH/pyprojects_data/neural-lam/saved_models/train-hi_lam-4x128-01_16_20-7552/min_val_loss.ckpt \
+    --grad_checkpointing --ar_steps_train 4 &
 wait $!
 if [ $? -ne 0 ]; then
     echo "Training failed"

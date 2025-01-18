@@ -4,3 +4,4 @@ logs
 graphs
 wandb
 model.ckpt
+saved_models
