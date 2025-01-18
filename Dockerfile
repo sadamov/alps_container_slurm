@@ -40,4 +40,4 @@ RUN pip install --no-cache-dir \
 RUN pip install --no-cache-dir --no-deps \
     git+https://github.com/joeloskarsson/mllam-data-prep.git@arcdist_fix \
     git+https://github.com/joeloskarsson/weather-model-graphs.git@decoding_mask \
-    git+https://github.com/sadamov/neural-lam.git@time_delta_emb
+    git+https://github.com/joeloskarsson/neural-lam-dev.git@time_delta_emb

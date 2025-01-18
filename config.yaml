@@ -12,3 +12,6 @@ training:
       T_2M: 1.0
       V_10M: 1.0
       PMSL: 1.0
+output_clamping:
+  lower:
+    T_2M: 0.0
