@@ -36,8 +36,8 @@ RUN pip install --no-cache-dir \
     zarr \
     "dask==2024.1.1"
 
-# Git packages without dependencies
-RUN pip install --no-cache-dir --no-deps \
-    git+https://github.com/joeloskarsson/mllam-data-prep.git@arcdist_fix \
-    git+https://github.com/joeloskarsson/weather-model-graphs.git@decoding_mask \
-    git+https://github.com/joeloskarsson/neural-lam-dev.git@time_delta_emb
+ARG CACHEBUST=1
+RUN pip install --no-cache-dir --no-deps --force-reinstall \
+        git+https://github.com/joeloskarsson/mllam-data-prep.git@arcdist_fix \
+        git+https://github.com/joeloskarsson/weather-model-graphs.git@decoding_mask \
+        git+https://github.com/sadamov/neural-lam.git@plot_boundaries
