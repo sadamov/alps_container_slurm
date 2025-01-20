@@ -36,7 +36,7 @@ RUN pip install --no-cache-dir \
     zarr \
     "dask==2024.1.1"
 
-ARG CACHEBUST=1
+ARG CACHEBUST=11
 RUN pip install --no-cache-dir --no-deps --force-reinstall \
         git+https://github.com/joeloskarsson/mllam-data-prep.git@arcdist_fix \
         git+https://github.com/joeloskarsson/weather-model-graphs.git@decoding_mask \
