@@ -8,6 +8,8 @@
 #SBATCH --nodes=4
 #SBATCH --ntasks-per-node=4
 
+ulimit -c 0
+
 if [ ! -d "logs" ]; then
     mkdir logs
 fi
