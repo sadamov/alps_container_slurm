@@ -1,5 +1,5 @@
 
-image = "/iopsstor/scratch/cscs/sadamov/research.sqsh"
+image = "/iopsstor/scratch/cscs/sadamov/plot_boundaries.sqsh"
 
 workdir = "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam"
 
