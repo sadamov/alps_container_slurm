@@ -2,6 +2,7 @@
 *.sqsh
 *.png
 *shps
+*.dat
 logs
 graphs
 wandb
