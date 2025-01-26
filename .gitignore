@@ -1,5 +1,7 @@
 *.zarr
 *.sqsh
+*.png
+*shps
 logs
 graphs
 wandb
