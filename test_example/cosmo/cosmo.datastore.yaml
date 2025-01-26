@@ -1,0 +1,106 @@
+schema_version: v0.5.0
+dataset_version: v0.1.0
+
+output:
+  variables:
+    static: [grid_index, static_feature]
+    state: [time, grid_index, state_feature]
+    forcing: [time, grid_index, forcing_feature]
+  coord_ranges:
+    time:
+      start: 2019-06-15T00:00
+      end: 2019-07-01T00:00
+      step: PT1H
+  chunking:
+    time: 1
+  splitting:
+    dim: time
+    splits:
+      train:
+        start: 2019-06-15T00:00
+        end: 2019-07-01T00:00
+        compute_statistics:
+          ops: [mean, std, diff_mean, diff_std]
+          dims: [grid_index, time]
+      val:
+        start: 2019-06-15T00:00
+        end: 2019-07-01T00:00
+      test:
+        start: 2019-06-15T00:00
+        end: 2019-07-01T00:00
+
+inputs:
+  cosmo_surface:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    dims: [time, x, y]
+    variables:
+      - T_2M
+      - U_10M
+      - V_10M
+      - PMSL
+    dim_mapping:
+      time:
+        method: rename
+        dim: time
+      grid_index:
+        method: stack
+        dims: [x, y]
+      state_feature:
+        method: stack_variables_by_var_name
+        name_format: "{var_name}"
+    target_output_variable: state
+
+  cosmo_static:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    dims: [x, y]
+    variables:
+      - HSURF
+    dim_mapping:
+      grid_index:
+        method: stack
+        dims: [x, y]
+      static_feature:
+        method: stack_variables_by_var_name
+        name_format: "{var_name}"
+    target_output_variable: static
+
+  cosmo_forcing:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    dims: [time, x, y, z]
+    derived_variables:
+      toa_radiation:
+        kwargs:
+          time: ds_input.time
+          lat: ds_input.lat
+          lon: ds_input.lon
+        function: mllam_data_prep.ops.derive_variable.physical_field.calculate_toa_radiation
+      hour_of_day_sin:
+        kwargs:
+          time: ds_input.time
+          component: sin
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+      hour_of_day_cos:
+        kwargs:
+          time: ds_input.time
+          component: cos
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+    dim_mapping:
+      time:
+        method: rename
+        dim: time
+      grid_index:
+        method: stack
+        dims: [x, y]
+      forcing_feature:
+        method: stack_variables_by_var_name
+        name_format: "{var_name}"
+    target_output_variable: forcing
+
+
+extra:
+  projection:
+    class_name: LambertConformal
+    kwargs:
+      central_latitude: 0
+      central_longitude: 10
+      standard_parallels: [63.3, 63.3]
