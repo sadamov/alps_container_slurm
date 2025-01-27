@@ -9,7 +9,7 @@ output:
   coord_ranges:
     time:
       start: 2015-11-28T00:00
-      end: 2020-10-29T04:00
+      end: 2020-10-29T00:00
       step: PT1H
   chunking:
     time: 1
@@ -18,42 +18,58 @@ output:
     splits:
       train:
         start: 2015-11-28T00:00
-        end: 2019-07-01T00:00
+        end: 2019-09-30T00:00
         compute_statistics:
           ops: [mean, std, diff_mean, diff_std]
           dims: [grid_index, time]
       val:
-        start: 2019-07-01T01:00
-        end: 2019-12-31T00:00
+        start: 2019-09-30T01:00
+        end: 2019-10-30T00:00
       test:
-        start: 2020-01-01T01:00
-        end: 2020-10-29T04:00
+        start: 2019-10-30T01:00
+        end: 2020-10-29T00:00
 
 inputs:
-#   cosmo_height_levels:
-#     path: /scratch/mch/sadamov/pyprojects_data/neural_lam/cosmo_paper/cosmo_ml_data.zarr
-#     dims: [time, x, y, z]
-#     variables:
-#       U:
-#         z:
-#           values: [55,]
-#           units: lev
-#       V:
-#         z:
-#           values: [55, ]
-#           units: lev
-#     dim_mapping:
-#       time:
-#         method: rename
-#         dim: time
-#       state_feature:
-#         method: stack_variables_by_var_name
-#         dims: [z]
-#         name_format: "{var_name}_lev_{z}"
-#       grid_index:
-#         method: stack
-#         dims: [x, y]
-#     target_output_variable: state
+  cosmo_height_levels:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    dims: [time, x, y, z]
+    variables:
+      U:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "m/s"
+      V:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "m/s"
+      PP:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "Pa"
+      T:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "K"
+      QV:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "kg/kg"
+      W:
+        z:
+          values: [1,6,9,12,14,16,20,23,27,31,39,45,60]
+          units: "m/s"
+    dim_mapping:
+      time:
+        method: rename
+        dim: time
+      state_feature:
+        method: stack_variables_by_var_name
+        dims: [z]
+        name_format: "{var_name}_lev_{z}"
+      grid_index:
+        method: stack
+        dims: [x, y]
+    target_output_variable: state
 
   cosmo_surface:
     path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
@@ -63,6 +79,11 @@ inputs:
       - U_10M
       - V_10M
       - PMSL
+      - PS
+      - TOT_PREC
+      - ASHFL_S
+      - ASOB_S
+      - ATHB_S
     dim_mapping:
       time:
         method: rename
@@ -75,11 +96,57 @@ inputs:
         name_format: "{var_name}"
     target_output_variable: state
 
-  cosmo_static:
+  cosmo_forcing:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/derived_vars_dummy.zarr
+    dims: [time, x, y]
+    derived_variables:
+      toa_radiation:
+        kwargs:
+          time: ds_input.time
+          lat: ds_input.lat
+          lon: ds_input.lon
+        function: mllam_data_prep.ops.derive_variable.physical_field.calculate_toa_radiation
+      hour_of_day_sin:
+        kwargs:
+          time: ds_input.time
+          component: sin
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+      hour_of_day_cos:
+        kwargs:
+          time: ds_input.time
+          component: cos
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+    dim_mapping:
+      time:
+        method: rename
+        dim: time
+      grid_index:
+        method: stack
+        dims: [x, y]
+      forcing_feature:
+        method: stack_variables_by_var_name
+        name_format: "{var_name}"
+    target_output_variable: forcing
+
+  cosmo_orography:
     path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
     dims: [x, y]
     variables:
       - HSURF
+    dim_mapping:
+      grid_index:
+        method: stack
+        dims: [x, y]
+      static_feature:
+        method: stack_variables_by_var_name
+        name_format: "{var_name}"
+    target_output_variable: static
+
+  cosmo_land_sea_mask:
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/land_sea_mask/land_sea_mask.zarr
+    dims: [x, y]
+    variables:
+      - lsm
     dim_mapping:
       grid_index:
         method: stack

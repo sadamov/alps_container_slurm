@@ -5,10 +5,20 @@ datastore_boundary:
   kind: mdp
   config_path: era5.datastore.yaml
   variable_mapping:
+    # Surface variables
     U_10M: 10m_u_component_of_wind
     T_2M: 2m_temperature
     V_10M: 10m_v_component_of_wind
     PMSL: mean_sea_level_pressure
+    PS: surface_pressure
+    TOT_PREC: total_precipitation
+    # Height level variables
+    U: u_component_of_wind
+    V: v_component_of_wind
+    T: temperature
+    QV: specific_humidity
+    W: vertical_velocity
+
 training:
   state_feature_weighting:
     __config_class__: ManualStateFeatureWeighting
@@ -17,6 +27,22 @@ training:
       T_2M: 1.0
       V_10M: 1.0
       PMSL: 1.0
+      PS: 1.0
+      TOT_PREC: 1.0
+      ASHFL_S: 1.0
+      ASOB_S: 1.0
+      ATHB_S: 1.0
+      U: 1.0
+      V: 1.0
+      T: 1.0
+      QV: 1.0
+      PP: 1.0
+      W: 1.0
 output_clamping:
   lower:
     T_2M: 0.0
+    PMSL: 0.0
+    PS: 0.0
+    TOT_PREC: 0.0
+    T: 0.0
+    QV: 0.0
