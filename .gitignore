@@ -3,6 +3,7 @@
 *.png
 *shps
 *.dat
+*ceff*
 logs
 graphs
 wandb
