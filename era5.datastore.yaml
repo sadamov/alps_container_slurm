@@ -29,7 +29,7 @@ output:
         end: 2020-10-29T00:00
   domain_cropping:
     margin_width_degrees: 10
-    interior_dataset_config_path: cosmo.datastore.yaml
+    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo.datastore.yaml
 
 inputs:
   era_height_levels:
@@ -38,27 +38,27 @@ inputs:
     variables:
       u_component_of_wind:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: m/s
       v_component_of_wind:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: m/s
       temperature:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: K
       specific_humidity:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: kg/kg
       geopotential:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: m^2/s^2
       vertical_velocity:
         level:
-          values: [50,100,150,200,250,300,400,500,600,700,850,925,1000]
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: Pa/s^2
     dim_mapping:
       time:

@@ -25,4 +25,4 @@ srun --container-writable \
              python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml --model hi_lam \
              --graph_name hierarchical --epochs 1 --eval test --n_example_pred 1 --val_steps_to_log 1 \
              --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-4x128-01_17_20-9570/min_val_loss.ckpt \
-             --hidden_dim 128 --num_nodes $SLURM_NNODES --batch_size 1"
+             --hidden_dim 128 --num_nodes $SLURM_NNODES --batch_size 1 --precision bf16"

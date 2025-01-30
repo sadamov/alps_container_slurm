@@ -32,4 +32,5 @@ srun \
     --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-4x128-01_17_20-9570/min_val_loss.ckpt \
     --hidden_dim 128 \
     --num_nodes $SLURM_NNODES \
-    --batch_size 1
+    --batch_size 1 \
+    --precision bf16
