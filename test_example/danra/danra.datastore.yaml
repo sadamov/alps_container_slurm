@@ -1,5 +1,5 @@
-schema_version: v0.5.0
-dataset_version: v0.1.0
+schema_version: v0.6.0
+dataset_version: v1.0.0
 
 output:
   variables:
@@ -62,6 +62,7 @@ inputs:
       # use surface incoming shortwave radiation as forcing
       - swavr0m
     derived_variables:
+      # derive variables to be used as forcings
       toa_radiation:
         kwargs:
           time: ds_input.time
