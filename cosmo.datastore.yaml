@@ -116,6 +116,16 @@ inputs:
           time: ds_input.time
           component: cos
         function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+      day_of_year_sin:
+        kwargs:
+          time: ds_input.time
+          component: sin
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_day_of_year
+      day_of_year_cos:
+        kwargs:
+          time: ds_input.time
+          component: cos
+        function: mllam_data_prep.ops.derive_variable.time_components.calculate_day_of_year
     dim_mapping:
       time:
         method: rename
