@@ -29,11 +29,11 @@ output:
         end: 2020-10-29T00:00
   domain_cropping:
     margin_width_degrees: 10.79
-    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_crop.datastore.yaml
+    interior_dataset_config_path: /capstor/store/cscs/swissai/a01/sadamov/cosmo_crop.datastore.yaml
 
 inputs:
   era_height_levels:
-    path: '/capstor/store/cscs/ERA5/weatherbench2_original'
+    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       u_component_of_wind:
@@ -74,7 +74,7 @@ inputs:
     target_output_variable: forcing
 
   era5_surface:
-    path: '/capstor/store/cscs/ERA5/weatherbench2_original'
+    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       - mean_sea_level_pressure
@@ -123,7 +123,7 @@ inputs:
     target_output_variable: forcing
 
   era5_static:
-    path: '/capstor/store/cscs/ERA5/weatherbench2_original'
+    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       - land_sea_mask
