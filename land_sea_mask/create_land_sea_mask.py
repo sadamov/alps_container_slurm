@@ -74,14 +74,14 @@ def generate_land_sea_mask(lat, lon, tempdir, projection, high_res_factor=10):
     return xr.DataArray(
         aggregated_out_image.T,
         name="land_sea_mask",
-        dims=("x", "y"), 
+        dims=("x", "y"),
         coords={"lat": (("x", "y"), lat.T), "lon": (("x", "y"), lon.T)},
         attrs={
             "long_name": "Land-sea mask",
             "description": "Binary mask where 1: land and 0: sea",
             "units": "1",
         },
-    ).chunk(None) 
+    ).chunk(None)
 
 
 def main():
@@ -100,10 +100,9 @@ def main():
     os.makedirs(tempdir, exist_ok=True)
 
     # Lambert projection parameters for Northern Europe
-    lambert_proj = ccrs.LambertConformal(
-        central_longitude=10,
-        central_latitude=0,
-        standard_parallels=(63.3, 63.3),
+    lambert_proj = ccrs.RotatedPole()(
+        pole_longitude=190,
+        pole_latitude=43,
     )
 
     # Load coordinates from zarr archive

@@ -29,7 +29,7 @@ output:
         end: 2020-10-29T00:00
   domain_cropping:
     margin_width_degrees: 10.79
-    interior_dataset_config_path: /capstor/store/cscs/swissai/a01/sadamov/cosmo_crop.datastore.yaml
+    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_crop.datastore.yaml
 
 inputs:
   era_height_levels:

@@ -66,8 +66,7 @@ inputs:
 
 extra:
   projection:
-    class_name: LambertConformal
+    class_name: RotatedPole
     kwargs:
-      central_latitude: 0
-      central_longitude: 10
-      standard_parallels: [63.3, 63.3]
+      pole_longitude: 190,
+      pole_latitude: 43,

@@ -97,7 +97,7 @@ inputs:
     target_output_variable: state
 
   cosmo_forcing:
-    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/derived_vars_dummy.zarr
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_dummy.zarr
     dims: [time, x, y]
     derived_variables:
       toa_radiation:
@@ -169,8 +169,7 @@ inputs:
 
 extra:
   projection:
-    class_name: LambertConformal
+    class_name: RotatedPole
     kwargs:
-      central_latitude: 0
-      central_longitude: 10
-      standard_parallels: [63.3, 63.3]
+      pole_longitude: 190,
+      pole_latitude: 43,
