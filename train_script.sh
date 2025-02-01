@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
-#SBATCH --nodes=4
+#SBATCH --nodes=8
 #SBATCH --ntasks-per-node=4
 
 if [ ! -d "logs" ]; then
@@ -49,12 +49,15 @@ if [ ! -d "graphs" ]; then
     fi
 fi
 
+# For finetuning increase epoch and
+# --grad_checkpointing --ar_steps_train 4
+
 # Final training step
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
-    --model hi_lam --graph_name hierarchical --epochs 60 --val_interval 5 --hidden_dim 128 --num_nodes $SLURM_NNODES --batch_size 2 \
+    --model hi_lam --graph_name hierarchical --epochs 40 --val_interval 10 --hidden_dim 128 --num_nodes $SLURM_NNODES --batch_size 2 \
     --load $SCRATCH/pyprojects_data/neural-lam/saved_models/train-hi_lam-4x128-01_16_20-7552/min_val_loss.ckpt \
-    --grad_checkpointing --ar_steps_train 4 --precision bf16 --lr_min 0.0001 &
+    --precision bf16 --lr_min 0.0001 &
 wait $!
 if [ $? -ne 0 ]; then
     echo "Training failed"

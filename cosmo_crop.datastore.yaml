@@ -49,5 +49,5 @@ extra:
   projection:
     class_name: RotatedPole
     kwargs:
-      pole_longitude: 190,
-      pole_latitude: 43,
+      pole_longitude: 190
+      pole_latitude: 43

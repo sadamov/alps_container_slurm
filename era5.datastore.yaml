@@ -9,7 +9,7 @@ output:
     time:
       start: 2015-11-28T00:00
       end: 2020-10-29T00:00
-      step: PT1H
+      step: PT6H
   chunking:
     time: 1
   splitting:
@@ -33,7 +33,7 @@ output:
 
 inputs:
   era_height_levels:
-    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
+    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       u_component_of_wind:
@@ -73,8 +73,8 @@ inputs:
         dims: [longitude, latitude]
     target_output_variable: forcing
 
-  era5_surface:
-    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
+  era_surface:
+    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       - mean_sea_level_pressure
@@ -82,7 +82,7 @@ inputs:
       - 2m_temperature
       - 10m_u_component_of_wind
       - 10m_v_component_of_wind
-      - total_precipitation
+      - total_precipitation_6hr
     derived_variables:
       toa_radiation:
         kwargs:
@@ -122,8 +122,8 @@ inputs:
         dims: [longitude, latitude]
     target_output_variable: forcing
 
-  era5_static:
-    path: '/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5.zarr'
+  era_static:
+    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       - land_sea_mask
