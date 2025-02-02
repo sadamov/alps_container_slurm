@@ -5,18 +5,12 @@ datastore_boundary:
   kind: mdp
   config_path: era5.datastore.yaml
   variable_mapping:
-    U_10M: 10m_u_component_of_wind
     T_2M: 2m_temperature
-    V_10M: 10m_v_component_of_wind
-    PMSL: mean_sea_level_pressure
 training:
   state_feature_weighting:
     __config_class__: ManualStateFeatureWeighting
     weights:
-      U_10M: 1.0
       T_2M: 1.0
-      V_10M: 1.0
-      PMSL: 1.0
 output_clamping:
   lower:
     T_2M: 0.0

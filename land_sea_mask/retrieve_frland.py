@@ -9,6 +9,15 @@ ds = xr.open_dataset(
     },
 )
 
+ds=ds.drop_vars([
+    "step",
+    "valid_time",
+    "surface",
+    "latitude",
+    "longitude",
+    "time",
+])
+
 plt.figure()
 ds.lsm.plot(add_colorbar=False)
 plt.title("Land-sea mask")

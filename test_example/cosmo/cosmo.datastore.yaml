@@ -3,9 +3,7 @@ dataset_version: v1.0.0
 
 output:
   variables:
-    static: [grid_index, static_feature]
     state: [time, grid_index, state_feature]
-    forcing: [time, grid_index, forcing_feature]
   coord_ranges:
     time:
       start: 2020-10-20T00:00
@@ -31,27 +29,10 @@ output:
 
 inputs:
   cosmo_forcing:
-    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_dummy.zarr
     dims: [time, x, y, z]
     variables:
-      - V_10M
-    derived_variables:
-      toa_radiation:
-        kwargs:
-          time: ds_input.time
-          lat: ds_input.lat
-          lon: ds_input.lon
-        function: mllam_data_prep.ops.derive_variable.physical_field.calculate_toa_radiation
-      hour_of_day_sin:
-        kwargs:
-          time: ds_input.time
-          component: sin
-        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
-      hour_of_day_cos:
-        kwargs:
-          time: ds_input.time
-          component: cos
-        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+      - T_2M
     dim_mapping:
       time:
         method: rename
@@ -59,14 +40,20 @@ inputs:
       grid_index:
         method: stack
         dims: [x, y]
-      forcing_feature:
+      state_feature:
         method: stack_variables_by_var_name
         name_format: "{var_name}"
-    target_output_variable: forcing
+    target_output_variable: state
 
 extra:
   projection:
     class_name: RotatedPole
     kwargs:
-      pole_longitude: 190
+      central_rotated_longitude: 190
+      pole_longitude: 10
       pole_latitude: 43
+    # class_name: LambertConformal
+    # kwargs:
+    #   central_longitude: 10
+    #   central_latitude: 0
+    #   standard_parallels: [63,63]

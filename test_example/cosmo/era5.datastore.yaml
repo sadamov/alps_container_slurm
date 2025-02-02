@@ -3,57 +3,39 @@ dataset_version: v1.0.0
 
 output:
   variables:
-    static: [grid_index, static_feature]
     forcing: [time, grid_index, forcing_feature]
   coord_ranges:
     time:
-      start: 2019-11-28T00:00
-      end: 2019-12-05T00:00
-      step: PT1H
+      start: 2020-10-20T00:00
+      end: 2020-10-29T00:00
+      step: PT6H
   chunking:
     time: 1
   splitting:
     dim: time
     splits:
       train:
-        start: 2019-11-28T00:00
-        end: 2019-12-05T00:00
+        start: 2020-10-20T00:00
+        end: 2020-10-29T00:00
         compute_statistics:
           ops: [mean, std, diff_mean, diff_std]
           dims: [grid_index, time]
       val:
-        start: 2019-11-28T00:00
-        end: 2019-12-05T00:00
+        start: 2020-10-20T00:00
+        end: 2020-10-29T00:00
       test:
-        start: 2019-11-28T00:00
-        end: 2019-12-05T00:00
+        start: 2020-10-20T00:00
+        end: 2020-10-29T00:00
   domain_cropping:
     margin_width_degrees: 10.79
-    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/test_example/cosmo/cosmo.datastore.yaml
+    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_crop.datastore.yaml
 
 inputs:
   era5_surface:
-    path: '/capstor/store/cscs/ERA5/weatherbench2_original'
-    dims: [time, longitude, latitude, level]
+    path: /capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr
+    dims: [time, longitude, latitude]
     variables:
-      - 10m_v_component_of_wind
-    derived_variables:
-      toa_radiation:
-        kwargs:
-          time: ds_input.time
-          lat: ds_input.latitude
-          lon: ds_input.longitude
-        function: mllam_data_prep.ops.derive_variable.physical_field.calculate_toa_radiation
-      hour_of_day_sin:
-        kwargs:
-          time: ds_input.time
-          component: sin
-        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
-      hour_of_day_cos:
-        kwargs:
-          time: ds_input.time
-          component: cos
-        function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
+      - 2m_temperature
     dim_mapping:
       time:
         method: rename

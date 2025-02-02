@@ -1,4 +1,4 @@
-schema_version: v0.5.0
+schema_version: v0.6.0
 dataset_version: v0.1.0
 
 output:
@@ -31,7 +31,7 @@ output:
 
 inputs:
   cosmo_height_levels:
-    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    path: /capstor/store/cscs/swissai/a01/sadamov/cosmo_ml_data.zarr
     dims: [time, x, y, z]
     variables:
       U:
@@ -72,7 +72,7 @@ inputs:
     target_output_variable: state
 
   cosmo_surface:
-    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    path: /capstor/store/cscs/swissai/a01/sadamov/cosmo_ml_data.zarr
     dims: [time, x, y]
     variables:
       - T_2M
@@ -139,7 +139,7 @@ inputs:
     target_output_variable: forcing
 
   cosmo_orography:
-    path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_ml_data.zarr
+    path: /capstor/store/cscs/swissai/a01/sadamov/cosmo_ml_data.zarr
     dims: [x, y]
     variables:
       - HSURF
