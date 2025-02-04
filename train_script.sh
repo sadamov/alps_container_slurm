@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
-#SBATCH --nodes=12
+#SBATCH --nodes=10
 #SBATCH --ntasks-per-node=4
 
 if [ ! -d "logs" ]; then
@@ -60,7 +60,9 @@ srun --container-writable \
     --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
     --model hi_lam \
     --graph_name hierarchical \
-    --hidden_dim 256 \
+    --hidden_dim 300 \
+    --hidden_dim_grid 150 \
+    --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --batch_size 2 \
     --min_lr 0.0001 \
