@@ -49,11 +49,6 @@ extra:
   projection:
     class_name: RotatedPole
     kwargs:
-      central_rotated_longitude: 190
-      pole_longitude: 10
+      central_rotated_longitude: 10
+      pole_longitude: 190
       pole_latitude: 43
-    # class_name: LambertConformal
-    # kwargs:
-    #   central_longitude: 10
-    #   central_latitude: 0
-    #   standard_parallels: [63,63]

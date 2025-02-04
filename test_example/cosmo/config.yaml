@@ -11,6 +11,6 @@ training:
     __config_class__: ManualStateFeatureWeighting
     weights:
       T_2M: 1.0
-output_clamping:
-  lower:
-    T_2M: 0.0
+  output_clamping:
+    lower:
+      T_2M: 0.0
