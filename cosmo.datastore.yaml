@@ -50,10 +50,10 @@ inputs:
         z:
           values: [6, 12, 20, 27, 31, 39, 45, 60]
           units: "K"
-      QV:
+      RELHUM:
         z:
           values: [6, 12, 20, 27, 31, 39, 45, 60]
-          units: "kg/kg"
+          units: "%"
       W:
         z:
           values: [6, 12, 20, 27, 31, 39, 45, 60]

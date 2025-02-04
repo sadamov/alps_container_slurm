@@ -16,7 +16,7 @@ datastore_boundary:
     U: u_component_of_wind
     V: v_component_of_wind
     T: temperature
-    QV: specific_humidity
+    RELHUM: specific_humidity
     W: vertical_velocity
 
 training:
@@ -64,14 +64,14 @@ training:
       T_lev_39: 0.125
       T_lev_45: 0.125
       T_lev_60: 0.125
-      QV_lev_6: 0.125
-      QV_lev_12: 0.125
-      QV_lev_20: 0.125
-      QV_lev_27: 0.125
-      QV_lev_31: 0.125
-      QV_lev_39: 0.125
-      QV_lev_45: 0.125
-      QV_lev_60: 0.125
+      RELHUM_lev_6: 0.125
+      RELHUM_lev_12: 0.125
+      RELHUM_lev_20: 0.125
+      RELHUM_lev_27: 0.125
+      RELHUM_lev_31: 0.125
+      RELHUM_lev_39: 0.125
+      RELHUM_lev_45: 0.125
+      RELHUM_lev_60: 0.125
       W_lev_6: 0.125
       W_lev_12: 0.125
       W_lev_20: 0.125
@@ -83,11 +83,20 @@ training:
   output_clamping:
     lower:
       TOT_PREC: 0.0
-      QV_lev_6: 0.0
-      QV_lev_12: 0.0
-      QV_lev_20: 0.0
-      QV_lev_27: 0.0
-      QV_lev_31: 0.0
-      QV_lev_39: 0.0
-      QV_lev_45: 0.0
-      QV_lev_60: 0.0
+      RELHUM_lev_6: 0.0
+      RELHUM_lev_12: 0.0
+      RELHUM_lev_20: 0.0
+      RELHUM_lev_27: 0.0
+      RELHUM_lev_31: 0.0
+      RELHUM_lev_39: 0.0
+      RELHUM_lev_45: 0.0
+      RELHUM_lev_60: 0.0
+    upper:
+      RELHUM_lev_6: 100.0
+      RELHUM_lev_12: 100.0
+      RELHUM_lev_20: 100.0
+      RELHUM_lev_27: 100.0
+      RELHUM_lev_31: 100.0
+      RELHUM_lev_39: 100.0
+      RELHUM_lev_45: 100.0
+      RELHUM_lev_60: 100.0

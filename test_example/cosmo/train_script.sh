@@ -2,7 +2,7 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=10:00:00
+#SBATCH --time=00:10:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
 #SBATCH --nodes=1
@@ -18,7 +18,7 @@ fi
 if [ ! -d "cosmo.datastore.zarr" ]; then
     echo "COSMO Datastore not found, preparing data"
     srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
-        -N1 python -m mllam_data_prep --show-progress $SCRATCH/pyprojects_data/neural-lam/cosmo.datastore.yaml --dask-distributed-local-core-fraction 0.1 &
+        -N1 -n1 python -m mllam_data_prep --show-progress $SCRATCH/pyprojects_data/neural-lam/test_example/cosmo/cosmo.datastore.yaml &
     wait $!
     if [ $? -ne 0 ]; then
         echo "COSMO data preparation failed"
@@ -29,7 +29,7 @@ fi
 if [ ! -d "era5.datastore.zarr" ]; then
     echo "ERA5 Datastore not found, preparing data"
     srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
-        -N1 python -m mllam_data_prep --show-progress $SCRATCH/pyprojects_data/neural-lam/era5.datastore.yaml --dask-distributed-local-core-fraction 0.1 &
+        -N1 -n1 python -m mllam_data_prep --show-progress $SCRATCH/pyprojects_data/neural-lam/test_example/cosmo/era5.datastore.yaml &
     wait $!
     if [ $? -ne 0 ]; then
         echo "ERA5 data preparation failed"
@@ -56,8 +56,8 @@ fi
 # Final training step
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/test_example/cosmo/config.yaml \
-    --model hi_lam --graph_name hierarchical --epochs 40 --val_interval 10 --hidden_dim 256 --num_nodes $SLURM_NNODES --batch_size 2 \
-    --min_lr 0.0001 --val_steps_to_log 1 3 5 7 9 --precision bf16-mixed --processor_layer 2 &
+    --model hi_lam --graph_name hierarchical --epochs 1 --val_interval 1 --hidden_dim 256 --num_nodes $SLURM_NNODES --batch_size 2 \
+    --min_lr 0.0001 --val_steps_to_log 1 3 5 7 9 --precision bf16-mixed --processor_layers 2 &
 wait $!
 if [ $? -ne 0 ]; then
     echo "Training failed"

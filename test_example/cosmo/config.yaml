@@ -10,7 +10,55 @@ training:
   state_feature_weighting:
     __config_class__: ManualStateFeatureWeighting
     weights:
+      U_lev_6: 1.0
+      U_lev_12: 1.0
+      U_lev_20: 1.0
+      U_lev_27: 1.0
+      U_lev_31: 1.0
+      U_lev_39: 1.0
+      U_lev_45: 1.0
+      U_lev_60: 1.0
+      V_lev_6: 1.0
+      V_lev_12: 1.0
+      V_lev_20: 1.0
+      V_lev_27: 1.0
+      V_lev_31: 1.0
+      V_lev_39: 1.0
+      V_lev_45: 1.0
+      V_lev_60: 1.0
+      PP_lev_6: 1.0
+      PP_lev_12: 1.0
+      PP_lev_20: 1.0
+      PP_lev_27: 1.0
+      PP_lev_31: 1.0
+      PP_lev_39: 1.0
+      PP_lev_45: 1.0
+      PP_lev_60: 1.0
+      T_lev_6: 1.0
+      T_lev_12: 1.0
+      T_lev_20: 1.0
+      T_lev_27: 1.0
+      T_lev_31: 1.0
+      T_lev_39: 1.0
+      T_lev_45: 1.0
+      T_lev_60: 1.0
+      W_lev_6: 1.0
+      W_lev_12: 1.0
+      W_lev_20: 1.0
+      W_lev_27: 1.0
+      W_lev_31: 1.0
+      W_lev_39: 1.0
+      W_lev_45: 1.0
+      W_lev_60: 1.0
       T_2M: 1.0
+      U_10M: 1.0
+      V_10M: 1.0
+      PMSL: 1.0
+      PS: 1.0
+      TOT_PREC: 1.0
+      ASHFL_S: 1.0
+      ASOB_S: 1.0
+      ATHB_S: 1.0
   output_clamping:
     lower:
       T_2M: 0.0
