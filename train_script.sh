@@ -66,7 +66,7 @@ srun --container-writable \
     --processor_layers 2 \
     --batch_size 2 \
     --min_lr 0.0001 \
-    --epochs 50 \
+    --epochs 200 \
     --val_interval 10 \
     --val_steps_to_log 1 3 5 7 9 \
     --precision bf16-mixed \

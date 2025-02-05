@@ -3,7 +3,7 @@ datastore:
   config_path: cosmo.datastore.yaml
 datastore_boundary:
   kind: mdp
-  config_path: era5.datastore.yaml
+  config_path: era5_10_79_margin.datastore.yaml
   variable_mapping:
     # Surface variables
     U_10M: 10m_u_component_of_wind

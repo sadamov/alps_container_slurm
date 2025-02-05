@@ -28,8 +28,9 @@ output:
         start: 2019-10-30T01:00
         end: 2020-10-29T00:00
   domain_cropping:
-    margin_width_degrees: 10.79
+    margin_width_degrees: 3.6
     interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_crop.datastore.yaml
+    include_interior_points: False
 
 inputs:
   era_surface:

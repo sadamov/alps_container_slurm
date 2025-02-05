@@ -29,8 +29,10 @@ srun \
     --eval test \
     --n_example_pred 1 \
     --val_steps_to_log 1 3 5 7 9 \
-    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x256-02_03_19-2187/min_val_loss_unroll1.ckpt \
-    --hidden_dim 256 \
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_04_17-8057/min_val_loss_unroll1.ckpt \
+    --hidden_dim 300 \
+    --hidden_dim_grid 150 \
+    --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --num_nodes $SLURM_NNODES \
     --batch_size 1
