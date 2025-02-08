@@ -4,6 +4,7 @@
 *shps
 *.dat
 *ceff*
+*.html
 logs
 graphs
 wandb
