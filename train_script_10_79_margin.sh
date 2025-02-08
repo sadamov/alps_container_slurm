@@ -23,11 +23,8 @@ srun --container-writable \
     --min_lr 0.0001 \
     --epochs 200 \
     --val_interval 10 \
-    --val_steps_to_log 1 3 5 7 9 \
+    --val_steps_to_log 1 2 3 4 \
+    --ar_steps_eval 4 \
     --precision bf16-mixed \
+    --num_workers 20 \
     --num_nodes $SLURM_NNODES
-wait $!
-if [ $? -ne 0 ]; then
-    echo "Training failed"
-    exit 1
-fi

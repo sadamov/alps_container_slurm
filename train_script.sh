@@ -71,8 +71,3 @@ srun --container-writable \
     --val_steps_to_log 1 3 5 7 9 \
     --precision bf16-mixed \
     --num_nodes $SLURM_NNODES
-wait $!
-if [ $? -ne 0 ]; then
-    echo "Training failed"
-    exit 1
-fi
