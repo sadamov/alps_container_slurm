@@ -57,4 +57,4 @@ fi
 srun --container-writable --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/test_example/cosmo/config.yaml \
     --model hi_lam --graph_name hierarchical --epochs 1 --val_interval 1 --hidden_dim 256 --num_nodes $SLURM_NNODES --batch_size 2 \
-    --min_lr 0.0001 --val_steps_to_log 1 3 5 7 9 --precision bf16-mixed --processor_layers 2 &
+    --min_lr 0.001 --val_steps_to_log 1 3 5 7 9 --precision bf16-mixed --processor_layers 2 &

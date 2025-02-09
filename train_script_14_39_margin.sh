@@ -20,7 +20,7 @@ srun --container-writable \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --batch_size 2 \
-    --min_lr 0.0001 \
+    --min_lr 0.001 \
     --epochs 200 \
     --val_interval 10 \
     --val_steps_to_log 1 2 3 4 \

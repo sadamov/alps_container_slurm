@@ -11,17 +11,24 @@
 
 ulimit -c 0
 
-if [ ! -d "logs" ]; then
-    mkdir logs
-fi
-if [ ! -d "wandb" ]; then
-    mkdir wandb
-fi
-
-# Clean any existing installations and run training in same container session
 srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     bash -c "python -m pip install --force-reinstall --no-deps -e /users/sadamov/pyprojects/neural-lam && \
-             python -m neural_lam.train_model --config_path $SCRATCH/pyprojects_data/neural-lam/config.yaml \
-            --model hi_lam --graph_name hierarchical --epochs 1 --val_interval 1 --hidden_dim 128 --num_nodes $SLURM_NNODES --batch_size 2 \
-            --precision bf16-mixed --val_steps_to_log 1 3 5 7 9"
+             python -m neural_lam.train_model \
+            --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin.yaml \
+            --model hi_lam \
+            --graph_name hierarchical_7_19_margin \
+            --hidden_dim 300 \
+            --hidden_dim_grid 150 \
+            --time_delta_enc_dim 32 \
+            --processor_layers 2 \
+            --batch_size 2 \
+            --min_lr 0.001 \
+            --epochs 300 \
+            --val_interval 10 \
+            --val_steps_to_log 1 4 8 12 16 20 24 \
+            --ar_steps_train 4 \
+            --ar_steps_eval 24 \
+            --num_nodes $SLURM_NNODES \
+            --grad_checkpointing \
+            --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_07_13-0681/last.ckpt"
