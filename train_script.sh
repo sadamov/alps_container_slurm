@@ -64,7 +64,7 @@ srun --container-writable \
     --hidden_dim_grid 150 \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
-    --batch_size 2 \
+    --batch_size 1 \
     --min_lr 0.001 \
     --epochs 200 \
     --val_interval 10 \

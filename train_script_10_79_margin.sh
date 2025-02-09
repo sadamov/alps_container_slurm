@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
-#SBATCH --nodes=24
+#SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
 
 # Final training step
@@ -19,7 +19,7 @@ srun --container-writable \
     --hidden_dim_grid 150 \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
-    --batch_size 2 \
+    --batch_size 1 \
     --min_lr 0.001 \
     --epochs 200 \
     --val_interval 10 \

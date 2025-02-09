@@ -5,7 +5,7 @@
 #SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
-#SBATCH --nodes=1
+#SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
 
 # Final training step
@@ -19,9 +19,9 @@ srun --container-writable \
     --hidden_dim_grid 150 \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
-    --batch_size 2 \
+    --batch_size 1 \
     --min_lr 0.001 \
-    --epochs 300 \
+    --epochs 50 \
     --val_interval 10 \
     --val_steps_to_log 1 4 8 12 16 20 24 \
     --ar_steps_train 4 \
@@ -30,4 +30,4 @@ srun --container-writable \
     --grad_checkpointing \
     --num_workers 20 \
     --num_nodes $SLURM_NNODES \
-    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_07_13-0681/min_val_loss_unroll1.ckpt
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_07_13-0681/last.ckpt
