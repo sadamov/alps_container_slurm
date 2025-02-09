@@ -8,6 +8,8 @@
 #SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
 
+ulimit -c 0
+
 # Final training step
 srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
@@ -28,6 +30,6 @@ srun --container-writable \
     --ar_steps_eval 24 \
     --precision bf16-mixed \
     --grad_checkpointing \
-    --num_workers 20 \
+    --num_workers 12 \
     --num_nodes $SLURM_NNODES \
     --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_07_13-0681/last.ckpt

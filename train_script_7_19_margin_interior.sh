@@ -8,6 +8,8 @@
 #SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
 
+ulimit -c 0
+
 # Final training step
 srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
@@ -26,5 +28,5 @@ srun --container-writable \
     --val_steps_to_log 1 2 3 4 \
     --ar_steps_eval 4 \
     --precision bf16-mixed \
-    --num_workers 20 \
+    --num_workers 12 \
     --num_nodes $SLURM_NNODES
