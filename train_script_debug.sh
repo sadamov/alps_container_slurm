@@ -15,7 +15,7 @@ srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     bash -c "python -m pip install --force-reinstall --no-deps -e /users/sadamov/pyprojects/neural-lam && \
              python -m neural_lam.train_model \
-            --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin_debug.yaml \
+            --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin.yaml \
             --model hi_lam \
             --graph_name hierarchical_7_19_margin \
             --hidden_dim 16 \
