@@ -2,7 +2,7 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
 #SBATCH --nodes=64
@@ -23,10 +23,14 @@ srun --container-writable \
     --processor_layers 2 \
     --batch_size 1 \
     --min_lr 0.001 \
-    --epochs 200 \
+    --epochs 50 \
     --val_interval 10 \
-    --val_steps_to_log 1 2 3 4 \
-    --ar_steps_eval 4 \
+    --val_steps_to_log 1 2 3 4 8 12 16 20 24 \
+    --ar_steps_train 4 \
+    --ar_steps_eval 24 \
     --precision bf16-mixed \
+    --grad_checkpointing \
     --num_workers 8 \
-    --num_nodes $SLURM_NNODES
+    --num_nodes $SLURM_NNODES \
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_10_18-1617/last.ckpt
+

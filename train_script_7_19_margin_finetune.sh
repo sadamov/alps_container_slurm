@@ -25,11 +25,12 @@ srun --container-writable \
     --min_lr 0.001 \
     --epochs 50 \
     --val_interval 10 \
-    --val_steps_to_log 1 4 8 12 16 20 24 \
+    --val_steps_to_log 1 2 3 4 8 12 16 20 24 \
     --ar_steps_train 4 \
     --ar_steps_eval 24 \
     --precision bf16-mixed \
     --grad_checkpointing \
-    --num_workers 12 \
+    --num_workers 8 \
     --num_nodes $SLURM_NNODES \
-    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_07_13-0681/last.ckpt
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_09_09-9499/last.ckpt
+

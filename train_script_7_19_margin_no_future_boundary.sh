@@ -2,11 +2,12 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
 #SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
+#SBATCH --begin=now+6hour
 
 ulimit -c 0
 
@@ -14,9 +15,9 @@ ulimit -c 0
 srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model \
-    --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin_interior.yaml \
+    --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin.yaml \
     --model hi_lam \
-    --graph_name hierarchical_7_19_margin_interior \
+    --graph_name hierarchical_7_19_margin \
     --hidden_dim 300 \
     --hidden_dim_grid 150 \
     --time_delta_enc_dim 32 \
@@ -29,4 +30,5 @@ srun --container-writable \
     --ar_steps_eval 4 \
     --precision bf16-mixed \
     --num_workers 8 \
-    --num_nodes $SLURM_NNODES
+    --num_nodes $SLURM_NNODES \
+    --num_future_boundary_steps 0

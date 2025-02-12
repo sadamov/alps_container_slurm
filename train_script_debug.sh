@@ -15,9 +15,9 @@ srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     bash -c "python -m pip install --force-reinstall --no-deps -e /users/sadamov/pyprojects/neural-lam && \
              python -m neural_lam.train_model \
-            --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin.yaml \
+            --config_path /users/sadamov/pyprojects/neural-lam/tests/datastore_examples/mdp/danra_100m_winds/config.yaml \
             --model hi_lam \
-            --graph_name hierarchical_7_19_margin \
+            --graph_name hierarchical \
             --hidden_dim 16 \
             --hidden_dim_grid 16 \
             --time_delta_enc_dim 16 \
@@ -25,5 +25,6 @@ srun --container-writable \
             --batch_size 1 \
             --epochs 1 \
             --ar_steps_train 2 \
-            --val_steps_to_log 1 3 5 7 9 \
+            --ar_steps_eval 2 \
+            --val_steps_to_log 1 2 \
             --num_nodes $SLURM_NNODES"
