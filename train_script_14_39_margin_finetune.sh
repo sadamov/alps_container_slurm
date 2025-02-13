@@ -30,6 +30,6 @@ srun --container-writable \
     --ar_steps_eval 24 \
     --precision bf16-mixed \
     --grad_checkpointing \
-    --num_workers 8 \
+    --num_workers 4 \
     --num_nodes $SLURM_NNODES \
     --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_09_14-2333/last.ckpt
