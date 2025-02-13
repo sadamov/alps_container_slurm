@@ -7,7 +7,6 @@
 #SBATCH --partition=normal
 #SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
-#SBATCH --begin=now+5hour
 
 ulimit -c 0
 
@@ -34,4 +33,3 @@ srun --container-writable \
     --num_workers 8 \
     --num_nodes $SLURM_NNODES \
     --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_09_14-2333/last.ckpt
-

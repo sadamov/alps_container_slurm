@@ -7,7 +7,6 @@
 #SBATCH --partition=normal
 #SBATCH --nodes=64
 #SBATCH --ntasks-per-node=4
-#SBATCH --begin=now+10hour
 
 ulimit -c 0
 
