@@ -77,7 +77,7 @@ compressor = numcodecs.Blosc(
 print("Downloading and saving zarr...")
 with ProgressBar():
     ifs_subset.to_zarr(
-        "ifs_danra_model1_subset.zarr",
+        "ifssubset.zarr",
         encoding={
             var: {"compressor": compressor} for var in ifs_subset.data_vars
         },
