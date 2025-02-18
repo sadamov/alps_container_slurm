@@ -4,7 +4,6 @@
 
 import xarray as xr
 import numpy as np
-import zarr
 import numcodecs
 from dask.diagnostics import ProgressBar
 
@@ -23,6 +22,7 @@ boundary_vars = [
     "2m_temperature",
     "geopotential",
     "mean_sea_level_pressure",
+    "total_precipitation_6hr",
     "specific_humidity",
     "surface_pressure",
     "temperature",

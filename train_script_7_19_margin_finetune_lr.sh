@@ -22,6 +22,7 @@ srun --container-writable \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --batch_size 1 \
+    --lr 0.0001 \
     --min_lr 0.0001 \
     --epochs 50 \
     --val_interval 10 \
@@ -33,4 +34,3 @@ srun --container-writable \
     --num_workers 8 \
     --num_nodes $SLURM_NNODES \
     --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_09_09-9499/last.ckpt
-

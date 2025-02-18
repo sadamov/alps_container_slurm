@@ -2,7 +2,7 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=24:00:00
+#SBATCH --time=12:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
 #SBATCH --nodes=64
@@ -22,6 +22,7 @@ srun --container-writable \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --batch_size 1 \
+    --lr 0.0001 \
     --min_lr 0.0001 \
     --epochs 50 \
     --val_interval 10 \

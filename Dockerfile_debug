@@ -40,4 +40,4 @@ ARG CACHEBUST=16
 RUN pip install --no-cache-dir --no-deps --force-reinstall \
         git+https://github.com/sadamov/mllam-data-prep.git@research \
         git+https://github.com/joeloskarsson/weather-model-graphs.git@research \
-        git+https://github.com/sadamov/neural-lam.git@write_zarr
+        git+https://github.com/joeloskarsson/neural-lam-dev.git@subsample_init_times

@@ -42,7 +42,7 @@ week_starts = pd.date_range(
 
 # Process each week
 for week_start in week_starts:
-    week_end = week_start + pd.Timedelta(days=6)
+    week_end = week_start + pd.Timedelta(days=7)
     week_starttimes = starttimes.sel(time=slice(week_start, week_end))
     print(f"Processing week starting {week_start.strftime('%Y-%m-%d')}")
 
