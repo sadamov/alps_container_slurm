@@ -16,7 +16,7 @@ ifs = xr.open_zarr(
 boundary_lon_range = (-16, 33)
 boundary_lat_range = (27, 66)
 
-time_slice = slice("2019-10-30T00", "2020-10-29T00")
+time_slice = slice("2019-08-30T00", "2020-11-02T00")
 
 boundary_vars = [
     "10m_u_component_of_wind",
@@ -77,7 +77,7 @@ compressor = numcodecs.Blosc(
 print("Downloading and saving zarr...")
 with ProgressBar():
     ifs_subset.to_zarr(
-        "ifssubset.zarr",
+        "ifs_subset.zarr",
         encoding={
             var: {"compressor": compressor} for var in ifs_subset.data_vars
         },

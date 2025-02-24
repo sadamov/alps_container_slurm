@@ -30,6 +30,7 @@ srun --container-writable \
     --ar_steps_train 4 \
     --ar_steps_eval 24 \
     --precision bf16-mixed \
+    --plot_vars "T_2M" \
     --grad_checkpointing \
     --num_workers 8 \
     --num_nodes $SLURM_NNODES \

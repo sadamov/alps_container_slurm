@@ -28,6 +28,7 @@ srun --container-writable \
     --val_steps_to_log 1 2 3 4 \
     --ar_steps_eval 4 \
     --precision bf16-mixed \
+    --plot_vars "T_2M" \
     --num_workers 8 \
     --num_nodes $SLURM_NNODES \
     --num_future_boundary_steps 0

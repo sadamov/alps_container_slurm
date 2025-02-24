@@ -70,4 +70,5 @@ srun --container-writable \
     --val_interval 10 \
     --val_steps_to_log 1 3 5 7 9 \
     --precision bf16-mixed \
+    --plot_vars "T_2M" \
     --num_nodes $SLURM_NNODES

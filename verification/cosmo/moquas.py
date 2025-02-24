@@ -10,12 +10,9 @@ Date: [2025-02-08]
 """
 
 from dataclasses import dataclass
-from enum import Enum
-import time
-from typing import Dict, Tuple, Union
+from typing import Dict, Tuple
 
 import numpy as np
-import torch
 import xarray as xr
 
 # ===============================
@@ -201,6 +198,7 @@ class MOQUASCalculator:
             forecast: Forecast Dataset from COSMO model
             obs: Observation/Ground truth Dataset from COSMO model
         """
+
         # Calculate wind speed from U and V components
         def compute_wind_speed(ds: xr.Dataset) -> xr.DataArray:
             return np.sqrt(ds.U_10M**2 + ds.V_10M**2)
@@ -239,8 +237,8 @@ if __name__ == "__main__":
     ds_gt = xr.open_zarr(PATH_GROUND_TRUTH)
     ds_ml = xr.open_zarr(PATH_MODEL)
 
-    ds_gt = ds_gt.isel(time=slice(0,-1))
-    ds_ml = ds_ml.isel(time=slice(1,None))
+    ds_gt = ds_gt.isel(time=slice(0, -1))
+    ds_ml = ds_ml.isel(time=slice(1, None))
     ds_ml["time"] = ds_gt["time"]
 
     calculator = MOQUASCalculator()

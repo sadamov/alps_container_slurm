@@ -3,8 +3,8 @@ datastore:
   config_path: cosmo.datastore.yaml
 datastore_boundary:
   kind: mdp
-  config_path: ifs_7_19_margin_interior.datastore.yaml
-  overload_stats_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5_7_19_margin_interior.datastore.yaml
+  config_path: ifs_14_39_margin.datastore.yaml
+  overload_stats_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/era5_14_39_margin.datastore.yaml
   variable_mapping:
     # Surface variables
     U_10M: 10m_u_component_of_wind

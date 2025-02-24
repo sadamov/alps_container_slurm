@@ -7,8 +7,8 @@ output:
     forcing: [analysis_time, elapsed_forecast_duration, grid_index, forcing_feature]
   coord_ranges:
     time:
-      start: 2020-01-01T00:00
-      end: 2020-01-07T00:00
+      start: 2015-11-28T00:00
+      end: 2020-10-29T00:00
       step: PT6H
   chunking:
     analysis_time: 1
@@ -17,24 +17,25 @@ output:
     dim: analysis_time
     splits:
       train:
-        start: 2020-01-01T00:00
-        end: 2020-01-07T00:00
+        start: 2015-11-28T00:00
+        end: 2019-09-30T00:00
         compute_statistics:
           ops: [mean, std, diff_mean, diff_std]
           dims: [grid_index, analysis_time, elapsed_forecast_duration]
       val:
-        start: 2020-01-01T00:00
-        end: 2020-01-07T00:00
+        start: 2019-09-30T00:00
+        end: 2019-10-30T00:00
       test:
-        start: 2020-01-01T00:00
-        end: 2020-01-07T00:00
+        start: 2019-10-30T00:00
+        end: 2020-10-29T00:00
   domain_cropping:
-    margin_width_degrees: 7.19
-    interior_dataset_config_path: danra_model1_config.yaml
+    margin_width_degrees: 3.6
+    interior_dataset_config_path: /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/cosmo_crop.datastore.yaml
+    include_interior_points: False
 
 inputs:
-  ifs_sl:
-    path: /proj/berzelius-2022-164/weather/ifs_forecasts/ifs_example_danra_model1_subset.zarr
+  era_surface:
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
     dims: [time, prediction_timedelta, longitude, latitude]
     variables:
       - mean_sea_level_pressure
@@ -42,8 +43,8 @@ inputs:
       - 10m_u_component_of_wind
       - 10m_v_component_of_wind
       - surface_pressure
+      - total_precipitation_6hr
     derived_variables:
-      # derive variables to be used as forcings
       toa_radiation:
         kwargs:
           time: ds_input.time
@@ -90,34 +91,34 @@ inputs:
         dims: [longitude, latitude]
     target_output_variable: forcing
 
-  ifs_pl:
-    path: /proj/berzelius-2022-164/weather/ifs_forecasts/ifs_example_danra_model1_subset.zarr
+  era_height_levels:
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
     dims: [time, prediction_timedelta, longitude, latitude, level]
     variables:
-      geopotential:
-        level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
-      temperature:
-        level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
-      specific_humidity:
-        level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
       u_component_of_wind:
         level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: m/s
       v_component_of_wind:
         level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: m/s
+      temperature:
+        level:
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: K
+      specific_humidity:
+        level:
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: kg/kg
+      geopotential:
+        level:
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: m^2/s^2
       vertical_velocity:
         level:
-          values: [100, 200, 400, 600, 700, 850, 925, 1000,]
-          units: hPa
+          values: [100, 200, 400, 600, 700, 850, 925, 1000]
+          units: Pa/s^2
     dim_mapping:
       analysis_time:
         method: rename
@@ -128,14 +129,14 @@ inputs:
       forcing_feature:
         method: stack_variables_by_var_name
         dims: [level]
-        name_format: "{var_name}{level}"
+        name_format: "{var_name}{level}hPa"
       grid_index:
         method: stack
         dims: [longitude, latitude]
     target_output_variable: forcing
 
   era_static:
-    path: /proj/berzelius-2022-164/weather/era5/weatherbench2/era_danra_model1_subset.zarr
+    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
     dims: [time, longitude, latitude, level]
     variables:
       - land_sea_mask

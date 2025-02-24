@@ -4,23 +4,24 @@ dataset_version: v0.1.0
 output:
   variables:
     static: [grid_index, static_feature]
-    forcing: [time, grid_index, forcing_feature]
+    forcing: [analysis_time, elapsed_forecast_duration, grid_index, forcing_feature]
   coord_ranges:
     time:
       start: 2015-11-28T00:00
       end: 2020-10-29T00:00
       step: PT6H
   chunking:
-    time: 1
+    analysis_time: 1
+    elapsed_forecast_duration: 1
   splitting:
-    dim: time
+    dim: analysis_time
     splits:
       train:
         start: 2015-11-28T00:00
         end: 2019-09-30T00:00
         compute_statistics:
           ops: [mean, std, diff_mean, diff_std]
-          dims: [grid_index, time]
+          dims: [grid_index, analysis_time, elapsed_forecast_duration]
       val:
         start: 2019-09-30T00:00
         end: 2019-10-30T00:00
@@ -34,8 +35,8 @@ output:
 
 inputs:
   era_surface:
-    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
-    dims: [time, longitude, latitude]
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
+    dims: [time, prediction_timedelta, longitude, latitude]
     variables:
       - mean_sea_level_pressure
       - 2m_temperature
@@ -47,33 +48,41 @@ inputs:
       toa_radiation:
         kwargs:
           time: ds_input.time
+          lead_time: ds_input.prediction_timedelta
           lat: ds_input.latitude
           lon: ds_input.longitude
         function: mllam_data_prep.ops.derive_variable.physical_field.calculate_toa_radiation
       hour_of_day_sin:
         kwargs:
           time: ds_input.time
+          lead_time: ds_input.prediction_timedelta
           component: sin
         function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
       hour_of_day_cos:
         kwargs:
           time: ds_input.time
+          lead_time: ds_input.prediction_timedelta
           component: cos
         function: mllam_data_prep.ops.derive_variable.time_components.calculate_hour_of_day
       day_of_year_sin:
         kwargs:
           time: ds_input.time
+          lead_time: ds_input.prediction_timedelta
           component: sin
         function: mllam_data_prep.ops.derive_variable.time_components.calculate_day_of_year
       day_of_year_cos:
         kwargs:
           time: ds_input.time
+          lead_time: ds_input.prediction_timedelta
           component: cos
         function: mllam_data_prep.ops.derive_variable.time_components.calculate_day_of_year
     dim_mapping:
-      time:
+      analysis_time:
         method: rename
         dim: time
+      elapsed_forecast_duration:
+        method: rename
+        dim: prediction_timedelta
       forcing_feature:
         method: stack_variables_by_var_name
         name_format: "{var_name}"
@@ -83,8 +92,8 @@ inputs:
     target_output_variable: forcing
 
   era_height_levels:
-    path: '/capstor/store/cscs/swissai/a01/sadamov/era_subset.zarr'
-    dims: [time, longitude, latitude, level]
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
+    dims: [time, prediction_timedelta, longitude, latitude, level]
     variables:
       u_component_of_wind:
         level:
@@ -111,9 +120,12 @@ inputs:
           values: [100, 200, 400, 600, 700, 850, 925, 1000]
           units: Pa/s^2
     dim_mapping:
-      time:
+      analysis_time:
         method: rename
         dim: time
+      elapsed_forecast_duration:
+        method: rename
+        dim: prediction_timedelta
       forcing_feature:
         method: stack_variables_by_var_name
         dims: [level]

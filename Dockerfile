@@ -12,7 +12,8 @@ RUN pip install --no-cache-dir \
     pyproj \
     networkx \
     loguru \
-    wandb \
+    "wandb>=0.16.0" \
+    "pydantic<2.0.0" \
     plotly \
     tueplots \
     jupyter-book \
@@ -36,7 +37,7 @@ RUN pip install --no-cache-dir \
     zarr \
     "dask==2024.1.1"
 
-ARG CACHEBUST=12
+ARG CACHEBUST=13
 RUN pip install --no-cache-dir --no-deps --force-reinstall \
         git+https://github.com/sadamov/mllam-data-prep.git@research \
         git+https://github.com/joeloskarsson/weather-model-graphs.git@research \

@@ -23,10 +23,10 @@ output:
           ops: [mean, std, diff_mean, diff_std]
           dims: [grid_index, analysis_time, elapsed_forecast_duration]
       val:
-        start: 2019-09-30T01:00
+        start: 2019-09-30T00:00
         end: 2019-10-30T00:00
       test:
-        start: 2019-10-30T01:00
+        start: 2019-10-30T00:00
         end: 2020-10-29T00:00
   domain_cropping:
     margin_width_degrees: 7.19
@@ -35,7 +35,7 @@ output:
 
 inputs:
   era_surface:
-    path: '/capstor/store/cscs/swissai/a01/sadamov/ifs_subset.zarr'
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
     dims: [time, prediction_timedelta, longitude, latitude]
     variables:
       - mean_sea_level_pressure
@@ -92,7 +92,7 @@ inputs:
     target_output_variable: forcing
 
   era_height_levels:
-    path: '/capstor/store/cscs/swissai/a01/sadamov/ifs_subset.zarr'
+    path: '/capstor/scratch/cscs/sadamov/ifs_subset.zarr'
     dims: [time, prediction_timedelta, longitude, latitude, level]
     variables:
       u_component_of_wind:

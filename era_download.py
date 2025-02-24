@@ -16,7 +16,7 @@ era = xr.open_zarr(
 boundary_lon_range = (-16, 33)
 boundary_lat_range = (27, 66)
 
-time_slice = slice("2000-01-01T00", "2020-10-29T00")
+time_slice = slice("2015-01-01T00", "2020-12-31T00")
 
 boundary_vars = [
     "10m_u_component_of_wind",

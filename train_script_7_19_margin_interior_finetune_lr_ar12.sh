@@ -14,23 +14,27 @@ ulimit -c 0
 srun --container-writable \
     --environment=/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/torch_container.toml \
     python -m neural_lam.train_model \
-    --config_path $SCRATCH/pyprojects_data/neural-lam/config_14_39_margin.yaml \
+    --config_path $SCRATCH/pyprojects_data/neural-lam/config_7_19_margin_interior.yaml \
     --model hi_lam \
-    --graph_name hierarchical_14_39_margin \
+    --graph_name hierarchical_7_19_margin_interior \
     --hidden_dim 300 \
     --hidden_dim_grid 150 \
     --time_delta_enc_dim 32 \
     --processor_layers 2 \
     --batch_size 1 \
-    --min_lr 0.001 \
-    --epochs 50 \
+    --lr 0.0001 \
+    --min_lr 0.0001 \
+    --epochs 80 \
     --val_interval 10 \
     --val_steps_to_log 1 2 3 4 8 12 16 20 24 \
-    --ar_steps_train 4 \
+    --ar_steps_train 12 \
     --ar_steps_eval 24 \
     --precision bf16-mixed \
     --plot_vars "T_2M" \
     --grad_checkpointing \
     --num_workers 4 \
     --num_nodes $SLURM_NNODES \
-    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_09_14-2333/last.ckpt
+    --restore_opt \
+    --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_22_12-3500/last.ckpt
+    # --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_21_07-0130/last.ckpt \
+    # --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_10_18-1617/last.ckpt
