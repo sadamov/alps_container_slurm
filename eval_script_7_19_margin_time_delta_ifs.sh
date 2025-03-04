@@ -25,11 +25,12 @@ srun \
         --hidden_dim_grid 150 \
         --time_delta_enc_dim 32 \
         --processor_layers 2 \
+        --dynamic_time_delta \
         --num_nodes $SLURM_NNODES \
         --batch_size 1 \
         --plot_vars "T_2M" "U_10M" \
         --precision bf16-mixed \
-        --graph_name hierarchical_7_19_margin_interior \
-        --config_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/config_7_19_margin_interior.yaml \
-        --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_22_12-3500/last.ckpt \
-        # --save_eval_to_zarr_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/eval_results/preds_7_19_margin_interior_lr_0001_ar_6_era.zarr
+        --graph_name hierarchical_7_19_margin \
+        --config_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/config_7_19_margin_ifs.yaml \
+        --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-02_28_06-0616/last.ckpt
+        #--save_eval_to_zarr_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/eval_results/preds_7_19_margin.zarr

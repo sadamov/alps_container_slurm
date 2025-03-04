@@ -1,6 +1,5 @@
 # Standard library
 import tarfile
-from ctypes.wintypes import SHORT
 from pathlib import Path
 
 # Third-party
