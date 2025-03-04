@@ -10,3 +10,4 @@ graphs
 wandb
 model.ckpt
 saved_models
+val_plots
