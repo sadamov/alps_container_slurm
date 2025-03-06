@@ -2,7 +2,7 @@
 #SBATCH --job-name=mllam
 #SBATCH --output=logs/mllam_%j.out
 #SBATCH --error=logs/mllam_%j.err
-#SBATCH --time=24:00:00
+#SBATCH --time=02:00:00
 #SBATCH --account=a-a01
 #SBATCH --partition=normal
 #SBATCH --nodes=1
@@ -31,5 +31,5 @@ srun \
         --precision bf16-mixed \
         --graph_name triangular_hierarchical \
         --config_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/config_7_19_margin.yaml \
-        --load 
+        --load /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/saved_models/train-hi_lam-2x300-03_04_22-7885/last.ckpt
         #--save_eval_to_zarr_path /iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/eval_results/preds_7_19_margin_triangular_era.zarr

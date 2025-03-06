@@ -6,7 +6,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-OUTPUT_DIR = "val_plots/time embed"
+OUTPUT_DIR = "val_plots/graph_design"
 
 # Configuration
 METRICS_FILES = {
@@ -16,11 +16,13 @@ METRICS_FILES = {
     # "no boundary": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_135811-taoe2q20/files/test_metrics.pkl",
     # "3.6°": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_135710-5ikae3ta/files/test_metrics.pkl",
     "7.19°": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_135748-rx3r2qc1/files/test_metrics.pkl",
-    "7.19° -- time embed": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250228_193408-rbp9ta35/files/test_metrics.pkl",
+    # "7.19° -- time embed": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250228_193408-rbp9ta35/files/test_metrics.pkl",
     # "7.19° - no future": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_203137-pevaufbw/files/test_metrics.pkl",
     # "7.19° with interior": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_094539-ve7jxmni/files/test_metrics.pkl",
     # "10.79°": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_194442-1mrvluca/files/test_metrics.pkl",
     # "14.39°": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_135712-d82t2arn/files/test_metrics.pkl",
+    # GRAPH DESIGN
+    "Triangular": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250305_143223-sc0ind3i/files/test_metrics.pkl",
     # SUBSAMPLING
     # "7.19° with 3h subsample": "/iopsstor/scratch/cscs/sadamov/pyprojects_data/neural-lam/wandb/run-20250223_135759-liu0vlsa/files/test_metrics.pkl",
     # FINETUNING
