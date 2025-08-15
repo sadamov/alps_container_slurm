@@ -1,3 +1,4 @@
+import argparse
 import io
 import os
 import zipfile
@@ -83,9 +84,45 @@ def generate_land_sea_mask(lat, lon, tempdir, projection, high_res_factor=10):
         },
     ).chunk(None)
 
+def plot_land_sea_mask(zarr_path, output_filename):
+    """Plot the land-sea mask from a Zarr archive."""
+    # Load the land-sea mask
+    ds = xr.open_zarr(zarr_path)
+    land_sea_mask = ds["land_sea_mask"]
+    lat = ds["lat"].values
+    lon = ds["lon"].values
+
+    # Define the RotatedPole projection
+    lambert_proj = ccrs.RotatedPole(
+        pole_longitude=190,
+        pole_latitude=43,
+    )
+
+    # Create a plot
+    fig, ax = plt.subplots(
+        subplot_kw={"projection": lambert_proj}, figsize=(10, 6)
+    )
+    land_sea_mask.plot(
+        x="lon", y="lat", ax=ax, transform=ccrs.PlateCarree(), cmap="viridis"
+    )
+    ax.add_feature(cfeature.BORDERS, linestyle="-", alpha=0.5)
+    ax.coastlines()
+    ax.gridlines(draw_labels=True)
+
+    # Save the plot
+    plt.savefig(output_filename)
+    plt.close()
+    print(f"Plot saved to {output_filename}")
 
 def main():
     """Create and save land-sea mask."""
+    
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description="Generate land-sea mask")
+    parser.add_argument("--cosmo_path", 
+                       help="Path to cosmo_ml_data.zarr",
+                       default="cosmo_ml_data.zarr")
+    args = parser.parse_args()
 
     # Get conda environment path
     conda_prefix = os.environ.get("CONDA_PREFIX")
@@ -100,13 +137,13 @@ def main():
     os.makedirs(tempdir, exist_ok=True)
 
     # Lambert projection parameters for Northern Europe
-    lambert_proj = ccrs.RotatedPole()(
+    lambert_proj = ccrs.RotatedPole(
         pole_longitude=190,
         pole_latitude=43,
     )
 
     # Load coordinates from zarr archive
-    ds = xr.open_zarr("../cosmo_ml_data.zarr")
+    ds = xr.open_zarr(args.cosmo_path)
     lat = ds.lat.values
     lon = ds.lon.values
 
@@ -114,17 +151,8 @@ def main():
     land_sea_mask.to_zarr(zarr_path, mode="w")
     print(f"Land-sea mask saved to {zarr_path}")
 
-    # Plot and save figure
-    fig, ax = plt.subplots(
-        subplot_kw={"projection": lambert_proj}, figsize=(10, 6)
-    )
-    land_sea_mask.plot(x="x", y="y", ax=ax, cmap="viridis")
-    ax.add_feature(cfeature.BORDERS, linestyle="-", alpha=0.5)
-    ax.coastlines()
-    ax.gridlines()
-    plt.savefig("land_sea_mask.png")
-    plt.close()
-
+    # Use the new plotting function
+    plot_land_sea_mask(zarr_path, "land_sea_mask.png")
 
 if __name__ == "__main__":
     main()
