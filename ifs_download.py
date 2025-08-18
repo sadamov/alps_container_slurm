@@ -12,7 +12,7 @@ ifs = xr.open_zarr(
     "gs://weatherbench2/datasets/hres/2016-2022-0012-1440x721.zarr"
 )
 
-# Precomputed limits
+# Precomputed limits (adapted to COSMO)
 boundary_lon_range = (-16, 33)
 boundary_lat_range = (27, 66)
 
