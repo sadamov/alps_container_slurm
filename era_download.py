@@ -12,7 +12,7 @@ era = xr.open_zarr(
     "gs://weatherbench2/datasets/era5/1959-2022-6h-1440x721.zarr"
 )
 
-# Precomputed limits
+# Precomputed limits (adapted to COSMO)
 boundary_lon_range = (-16, 33)
 boundary_lat_range = (27, 66)
 
