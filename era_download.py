@@ -1,6 +1,7 @@
-# Download script for ERA5 matching DANRA domain
+# Download script for ERA5 matching COSMO domain
 # For LAM model project
 # by Joel Oskarsson, joel.oskarsson@outlook.com
+# adapted by Simon Adamov simon.adamov@meteoswiss.ch
 
 import numcodecs
 import numpy as np

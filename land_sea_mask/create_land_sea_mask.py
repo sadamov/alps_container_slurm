@@ -1,3 +1,7 @@
+# Create simple static land-sea mask for COSMO dataset
+# For LAM model project
+# by Simon Adamov, simon.adamov@meteoswiss.ch
+
 import argparse
 import io
 import os
@@ -84,6 +88,7 @@ def generate_land_sea_mask(lat, lon, tempdir, projection, high_res_factor=10):
         },
     ).chunk(None)
 
+
 def plot_land_sea_mask(zarr_path, output_filename):
     """Plot the land-sea mask from a Zarr archive."""
     # Load the land-sea mask
@@ -114,14 +119,17 @@ def plot_land_sea_mask(zarr_path, output_filename):
     plt.close()
     print(f"Plot saved to {output_filename}")
 
+
 def main():
     """Create and save land-sea mask."""
-    
+
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Generate land-sea mask")
-    parser.add_argument("--cosmo_path", 
-                       help="Path to cosmo_ml_data.zarr",
-                       default="cosmo_ml_data.zarr")
+    parser.add_argument(
+        "--cosmo_path",
+        help="Path to cosmo_ml_data.zarr",
+        default="cosmo_ml_data.zarr",
+    )
     args = parser.parse_args()
 
     # Get conda environment path
@@ -153,6 +161,7 @@ def main():
 
     # Use the new plotting function
     plot_land_sea_mask(zarr_path, "land_sea_mask.png")
+
 
 if __name__ == "__main__":
     main()
